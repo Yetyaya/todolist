@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>代辦清單</title>
+  <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+<h1>待辦清單</h1>
+<div class="box">
+  <input id="inputTxt" placeholder="請輸入您的代辦事項，輸入完畢請按enter鍵" v-model="newTodo" @keyup.enter="addInfo(newTodo)"/>
+  <div class="alldoneBtn" @click="allCompleted()" v-bind:class="{colorChange: checkAll}"></div>
+  <!-- 這裡要v-for的迴圈對象(陣列)很重要，決定了點擊全部/未完成/完成 要跑出的畫面-->
+  <template v-for="todo in filterTodoContent"> 
+    <div class="lineBox">
+      <div class="doneBtn" @click="completed(todo)" v-bind:class="{colorChange: todo.completed}" v-model="todo.completed"> </div>
+      <div class="item" v-bind:class="{check: todo.completed}">{{todo.content}}</div>
+      <div class="deleteBtn" @click="deleteInfo(todo)">X</div>
+    </div>
+  </template>
+  <div class="info">
+    <div class="undone">{{activeNum}}項事項尚未完成</div>
+    <div class="changeBox">
+      <div class="all" @click="showAll()" v-bind:class="{selected: all}">全部</div>
+      <div class="active" @click="showActive()" v-bind:class="{selected: act}">未完成</div>
+      <div class="completed" @click="showCompleted()" v-bind:class="{selected: com}">完成</div>
+    </div>
+    <div class="clear" @click="clearCompleted()">清除已完成事項</div>
+  </div>
+</div>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.3/vue.min.js'></script> <script  src="js/index.js"></script>
+
+</body>
+
+</html>
